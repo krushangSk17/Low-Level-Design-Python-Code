@@ -107,15 +107,12 @@ class Tag:
     tags = {}  # Using a dictionary to manage tags and associated questions
 
     def __init__(self, title) -> None:
-        
         if title in Tag.tags:
             raise ValueError("Tag already exists.")
-        
         self.id = type(self).ID
         type(self).ID += 1
         self.title = title
         self.questions = []
-        
         Tag.tags[title] = self
 
     def addQuestion(self, question):
@@ -155,4 +152,40 @@ class StackOverFlow:
         question.answers.append(answer)
         return answer
 
-    def addCommentT
+    def addCommentToQuestion(self, user, question, comment):
+        comment_obj = Comment(user, question, comment)
+        self.comments.append(comment_obj)
+        return comment_obj
+
+    def addCommentToAnswer(self, user, answer, comment):
+        comment_obj = Comment(user, answer, comment)
+        self.comments.append(comment_obj)
+        return comment_obj
+
+    def addVoteToQuestion(self, user, question, vote):
+        vote_obj = Vote(user, question, vote)
+        self.votes.append(vote_obj)
+        return vote_obj
+
+    def addVoteToAnswer(self, user, answer, vote):
+        vote_obj = Vote(user, answer, vote)
+        self.votes.append(vote_obj)
+        return vote_obj
+
+    def findUser(self, username):
+        for user in self.users:
+            if user.username == username:
+                return user
+        return None
+
+    def findQuestion(self, question_id):
+        for question in self.questions:
+            if question.id == question_id:
+                return question
+        return None
+
+    def findAnswer(self, answer_id):
+        for answer in self.answers:
+            if answer.id == answer_id:
+                return answer
+        return None
