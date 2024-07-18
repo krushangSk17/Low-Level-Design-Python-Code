@@ -189,3 +189,64 @@ class StackOverFlow:
             if answer.id == answer_id:
                 return answer
         return None
+
+
+if __name__ == "__main__":
+    # Create the StackOverFlow platform instance
+    platform = StackOverFlow()
+
+    # Adding some users
+    user1 = platform.addUser("john_doe", "john@example.com")
+    user2 = platform.addUser("jane_smith", "jane@example.com")
+
+    # Print user information
+    print("Users:")
+    for user in platform.users:
+        print(f"ID: {user.id}, Username: {user.username}, Email: {user.email}")
+
+    # Adding some tags
+    tag1 = platform.getOrCreateTag("python")
+    tag2 = platform.getOrCreateTag("machine-learning")
+
+    # Adding questions
+    question1 = platform.addQuestion(user1, "How to use lists in Python?", "I'm new to Python and need help with lists.", ["python"])
+    question2 = platform.addQuestion(user2, "What is machine learning?", "Can someone explain what machine learning is?", ["machine-learning", "python"])
+
+    # Adding answers
+    answer1 = platform.addAnswer(user2, question1, "Lists in Python are created by placing the items inside square brackets [].")
+    answer2 = platform.addAnswer(user1, question2, "Machine learning is a field of AI that uses statistical techniques to give computer systems the ability to 'learn'.")
+
+    # Adding comments
+    comment1 = platform.addCommentToQuestion(user2, question1, "This is a great question!")
+    comment2 = platform.addCommentToAnswer(user1, answer1, "Thanks for the explanation.")
+
+    # Adding votes
+    vote1 = platform.addVoteToQuestion(user2, question1, 1)
+    vote2 = platform.addVoteToAnswer(user1, answer1, 1)
+
+    # Printing the details of questions, answers, comments, and votes
+    print("\nQuestions:")
+    for question in platform.questions:
+        print(f"Title: {question.title}, Content: {question.content}, Tags: {[tag.title for tag in question.tags]}")
+        print("Comments on Question:")
+        for comment in question.getComments():
+            print(f"  {comment[0].username} said: {comment[1]}")
+        print("Votes on Question:")
+        for vote in question.getVotes():
+            print(f"  {vote[0].username} voted: {vote[1]}")
+        print("Answers:")
+        for answer in question.answers:
+            print(f"  {answer.author.username} answered: {answer.content}")
+            print("  Comments on Answer:")
+            for comment in answer.getComments():
+                print(f"    {comment[0].username} said: {comment[1]}")
+            print("  Votes on Answer:")
+            for vote in answer.getVotes():
+                print(f"    {vote[0].username} voted: {vote[1]}")
+
+    # Printing tags and associated questions
+    print("\nTags and Associated Questions:")
+    for tag in platform.tags:
+        print(f"Tag: {tag.title}")
+        for question in tag.questions:
+            print(f"  Question: {question.title}")
