@@ -5,9 +5,9 @@ class User:
     ID = 0
     def __init__(self, username, email) -> None:
         self.id = type(self).ID
+        type(self).ID += 1
         self.username = username
         self.email = email
-        type(self).ID += 1
         self.reputation = 0
         self.questions = []
         self.answers = []
@@ -104,16 +104,22 @@ class Vote:
 
 class Tag:
     ID = 0
-    tag_set = set()
+    tags = {}  # Using a dictionary to manage tags and associated questions
+
     def __init__(self, title) -> None:
+        
+        if title in Tag.tags:
+            raise ValueError("Tag already exists.")
+        
         self.id = type(self).ID
         type(self).ID += 1
-        if title not in type(self).tag_set:
-            self.title = title
-            type(self).tag_set.add(title)
-        else:
-            raise Exception("Tag already exists.")
+        self.title = title
+        self.questions = []
+        
+        Tag.tags[title] = self
 
+    def addQuestion(self, question):
+        self.questions.append(question)
 
 class StackOverFlow:
     def __init__(self):
@@ -130,10 +136,18 @@ class StackOverFlow:
         return user
 
     def addQuestion(self, user, title, content, tag_titles):
-        tags = [self.addTag(title) for title in tag_titles]
+        tags = [self.getOrCreateTag(title) for title in tag_titles]
         question = Question(user, title, content, tags)
         self.questions.append(question)
+        for tag in tags:
+            tag.addQuestion(question)
         return question
+
+    def getOrCreateTag(self, title):
+        if title in Tag.tags:
+            return Tag.tags[title]
+        else:
+            return Tag(title)
 
     def addAnswer(self, user, question, content):
         answer = Answer(user, question, content)
@@ -141,50 +155,4 @@ class StackOverFlow:
         question.answers.append(answer)
         return answer
 
-    def addCommentToQuestion(self, user, question, comment):
-        comment_obj = Comment(user, question, comment)
-        self.comments.append(comment_obj)
-        return comment_obj
-
-    def addCommentToAnswer(self, user, answer, comment):
-        comment_obj = Comment(user, answer, comment)
-        self.comments.append(comment_obj)
-        return comment_obj
-
-    def addVoteToQuestion(self, user, question, vote):
-        vote_obj = Vote(user, question, vote)
-        self.votes.append(vote_obj)
-        return vote_obj
-
-    def addVoteToAnswer(self, user, answer, vote):
-        vote_obj = Vote(user, answer, vote)
-        self.votes.append(vote_obj)
-        return vote_obj
-
-    def addTag(self, title):
-        try:
-            tag = Tag(title)
-            self.tags.append(tag)
-            return tag
-        except Exception as e:
-            for tag in self.tags:
-                if tag.title == title:
-                    return tag
-
-    def findUser(self, username):
-        for user in self.users:
-            if user.username == username:
-                return user
-        return None
-
-    def findQuestion(self, question_id):
-        for question in self.questions:
-            if question.id == question_id:
-                return question
-        return None
-
-    def findAnswer(self, answer_id):
-        for answer in self.answers:
-            if answer.id == answer_id:
-                return answer
-        return None
+    def addCommentT
