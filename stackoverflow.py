@@ -1,3 +1,46 @@
+"""
+BLUEPRINT TO UNDERSTAND IT BETTER
+LLD STACKOVERFLOW SIMULATION SYSTEM
+
+Classes:
+1. User: Represents platform users.
+   - Attributes: id, username, email, reputation, questions, answers, comments
+
+2. Commentable (ABC): Abstract base class for items that can be commented on.
+   - Methods: addComment(user, comment), getComments()
+
+3. Votable (ABC): Abstract base class for items that can receive votes.
+   - Methods: addVote(user, vote), getVotes()
+
+4. Question: Represents questions posted by users.   - Inherits: Commentable, Votable
+   - Attributes: id, title, content, tags, author, creationDate, answers, comments, votes
+   - Methods: addComment, getComments, addVote, getVotes
+
+5. Answer: Represents answers to questions.   - Inherits: Commentable, Votable
+   - Attributes: id, question, content, author, creationDate, comments, votes, isAccepted
+   - Methods: addComment, getComments, addVote, getVotes
+
+6. Comment: Represents comments on questions or answers.
+   - Attributes: id, comment, author, creationDate, commentable
+
+7. Vote: Represents votes on questions or answers.
+   - Attributes: id, vote, author, creationDate, votable
+
+8. Tag: Represents tags associated with questions.
+   - Attributes: id, title, questions
+   - Methods: addQuestion()
+
+9. StackOverFlow: Manages the overall operations of the platform.
+   - Attributes: users, questions, answers, comments, votes, tags
+   - Methods: addUser, addQuestion, getOrCreateTag, addAnswer, addCommentToQuestion, addCommentToAnswer, addVoteToQuestion, addVoteToAnswer, findUser, findQuestion, findAnswer
+
+Usage:
+- Initialize the system.
+- Add and manage users, questions, answers, comments, and votes.
+- Link questions with tags and manage tag associations.
+"""
+
+
 import datetime
 from abc import ABC, abstractmethod
 
