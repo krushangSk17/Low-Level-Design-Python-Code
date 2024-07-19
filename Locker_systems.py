@@ -113,6 +113,7 @@ class System:
             self.available_lockers[locker.size].append(locker)
             locker.product = None
             product.locker = None
+            del self.products[product.id]
             print(f"{product} has been removed from: {locker}")
         else:
             print("Product is not in a locker.")
@@ -133,5 +134,7 @@ if __name__ == '__main__':
     # Attempt to add another product with no available locker
     product4 = system.create_product("Tablet", "medium")
     system.add_product(product4)
+
+    # print(system.products)
 
 
