@@ -1,0 +1,102 @@
+Elevator system design
+
+
+1. requirement:
+
+
+elevator: states = up down idle
+
+transfer: passanger from one floor to another
+
+open door when idle at floor
+
+200 elevator floors + 50 elevator cars
+
+spcs: elevator car
+number of passangers (limit)/max load
+max speed
+
+
+what we want to minimize:
+ minimize wait time of system
+minimize the wait time of the user
+
+throughput
+power usagae (elevator movement power cost)
+ 
+different floor zones (elevator limit top and bottom floor / odd or even floor zoning with elevator (for efficient algorithm development))
+
+and many more optional task:
+
+
+2. class and object diagram
+
+passanger - (no need this class)
+elevator car
+floors
+doors
+button panels 
+(floor - up down
+, elevator - many buttons)
+
+dispacher (scheduler) most appropriate elevator to send to the user
+elevator system
+monitoring system
+
+3. usecases:
+
+calling the ele
+move/ stop the ele
+open/close door
+moving direction
+floor
+eme break
+eme call
+
+
+4. class diagram
+
+ele state=  mentioned below {	
+
+idle
+
+moving same direction towards pass and direction passanger wants to go
+
+moving same direction towards pass and opposite direction passanger wants to go
+
+moving away from the passanger
+
+}
+
+button class =  hall buttons, ele buttons
+
+ele class = current floor, task pending list, need to go set, current direction , current weight, go to floor func(), stop(), dooropen(), doorclose()
+
+floor class = up down funcitons() -> find the nearest elevator
+
+systemclass = elevetors, floors, positions: ele id (for nearest eve)
+
+
+
+
+
+-------- design done
+algorithm
+
+1. first come first serve (full request) - multiple passes.
+	
+idle
+
+moving same direction towards pass and direction passanger wants to go
+
+moving same direction towards pass and opposite direction passanger wants to go
+
+moving away from the passanger
+
+
+2.  shortest seek time first 
+(min heap (all the request) , shorted rquest) - starving problem
+
+3. scan algorithm (full up down pass)
+
+
