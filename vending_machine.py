@@ -198,11 +198,14 @@ class ReturnChangeState(VendingMachineState):
 class VendingMachine:
     def __init__(self):
         self.inventory = Inventory()
+
         self.idle_state = IdleState(self)
         self.ready_state = ReadyState(self)
         self.dispense_state = DispenseState(self)
         self.return_change_state = ReturnChangeState(self)
+        
         self.current_state = self.idle_state
+        
         self.selected_product = None
         self.total_payment = 0.0
 
