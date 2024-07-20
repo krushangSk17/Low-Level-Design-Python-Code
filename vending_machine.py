@@ -1,3 +1,58 @@
+"""
+
+BLUE PRINT TO UNDERSTAND IT BETTER
+LLD VENDING MACHINE SYSTEM
+
+Classes:
+1. Coin (Enum): Represents different coin denominations.
+   - Values: PENNY = 0.01, NICKEL = 0.05, DIME = 0.1, QUARTER = 0.25
+
+2. Note (Enum): Represents different note denominations.
+   - Values: ONE = 1, FIVE = 5, TEN = 10, TWENTY = 20
+
+3. Product: Represents products available in the vending machine.
+   - Attributes: name, price
+
+4. Inventory: Manages the inventory of products.
+   - Attributes: products
+   - Methods: add_product(product, quantity), update_quantity(product, quantity), is_available(product)
+
+5. VendingMachineState (Abstract Class): Base class for different states of the vending machine.
+   - Attributes: vending_machine
+   - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change()
+
+6. IdleState: Represents the state when the machine is idle.
+   - Inherits: VendingMachineState
+   - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change()
+
+7. ReadyState: Represents the state when a product is selected and waiting for payment.
+   - Inherits: VendingMachineState
+   - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change()
+
+8. DispenseState: Represents the state when the product is being dispensed.
+   - Inherits: VendingMachineState
+   - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change()
+
+9. ReturnChangeState: Represents the state when returning change.
+   - Inherits: VendingMachineState
+   - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change()
+
+10. VendingMachine: Manages the state transitions and operations of the vending machine.
+    - Attributes: inventory, idle_state, ready_state, dispense_state, return_change_state, current_state, selected_product, total_payment
+    - Methods: select_product(product), insert_coin(coin), insert_note(note), dispense_product(), return_change(), set_state(state)
+
+Usage:
+- System initialization with a list of products and their quantities.
+- Select a product to purchase.
+- Insert coins or notes to make payment.
+- Dispense the selected product after payment is complete.
+- Return any change if overpayment is made.
+- Transition between different states (Idle, Ready, Dispense, ReturnChange) to handle operations.
+
+
+"""
+
+
 from enum import Enum
 from abc import ABC, abstractmethod
 
