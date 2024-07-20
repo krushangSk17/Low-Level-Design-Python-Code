@@ -35,6 +35,8 @@ Usage:
 - Initialize logger instance with Logger.get_instance().
 - Log messages using debug, info, warning, error, fatal methods.
 - Change configuration with set_config(config).
+
+C+P
 """
 
 from enum import Enum
