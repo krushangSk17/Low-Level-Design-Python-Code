@@ -15,10 +15,6 @@ Classes:
    - Attributes: file_path
    - Methods: __init__(file_path), append(log_message)
 
-5. DatabaseAppender: Stores log messages in a database.   - Inherits: LogAppender
-   - Attributes: db_url, username, password
-   - Methods: __init__(db_url, username, password), append(log_message)
-
 6. LogMessage: Represents a log message.
    - Attributes: level, message, timestamp
    - Methods: __init__(level, message), __str__()
@@ -72,19 +68,6 @@ class FileAppender(LogAppender):
         with open(self.file_path, "a") as file:
             file.write(str(log_message) + "\n")
 
-# Database appender implementation
-class DatabaseAppender(LogAppender):
-    def __init__(self, db_url, username, password):
-        self.db_url = db_url
-        self.username = username
-        self.password = password
-    
-    def append(self, log_message):
-        try:
-            pass
-        except psycopg2.Error as e:
-            print(f"Error: {e}")
-
 # Log message class
 class LogMessage:
     def __init__(self, level, message):
@@ -120,19 +103,19 @@ class LoggerConfig:
 class Logger:
     _instance = None
     
-    def __init__(self):
-        if Logger._instance is not None:
-            raise Exception("This class is a singleton!")
-        else:
-            Logger._instance = self
-            self.config = LoggerConfig(LogLevel.INFO, ConsoleAppender())
-    
     @staticmethod
     def get_instance():
         if Logger._instance is None:
             Logger()
         return Logger._instance
     
+    def __init__(self):
+        if Logger._instance is not None:
+            raise Exception("This class is a singleton!")
+        else:
+            Logger._instance = self
+            self.config = LoggerConfig(LogLevel.INFO, ConsoleAppender())
+        
     def set_config(self, config):
         self.config = config
     
