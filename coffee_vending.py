@@ -17,7 +17,8 @@ Classes:
 
 4. CoffeeMachine: Singleton coffee vending machine.
    - Attributes: _instance, coffee_menu, ingredients
-   - Methods: __init__(), get_instance(), _initialize_coffee_menu(), _initialize_ingredients(), display_menu(), select_coffee(coffee_name), dispense_coffee(coffee, payment), _has_enough_ingredients(coffee), _update_ingredients(coffee)
+   - Methods: __init__(), get_instance(), _initialize_coffee_menu(), _initialize_ingredients(), display_menu(), 
+   select_coffee(coffee_name), dispense_coffee(coffee, payment), _has_enough_ingredients(coffee), _update_ingredients(coffee)
 
 5. CoffeeVendingMachineDemo: Demonstrates the coffee vending machine.
    - Methods: run()
