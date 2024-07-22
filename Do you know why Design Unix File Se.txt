@@ -1,0 +1,2 @@
+Do you know why Design Unix File Search API is popular?
+A lot of amazon engineers don't know how to ask OOD questions. Some dude posted this Design Unix File Search API question, solution and follow up questions on an internal wiki page. That's why a lot of interviewers grab this questions.
