@@ -1,9 +1,78 @@
+"""
++-------------------+   +-------------------+
+|      Category     |   |      Product      |
++-------------------+   +-------------------+
+| - category_id     |   | - product_id      |
+| - name            |   | - name            |
++-------------------+   | - price           |
+                        | - category        |
+                        +-------------------+
+                                |
+                                |
+                        +-------------------+
+                        |        Cart       |
+                        +-------------------+
+                        | - products        |
+                        | - total_amount    |
+                        +-------------------+
+                        | + add_product()   |
+                        | + get_total_amount() |
+                        +-------------------+
+                                |
+                                | Uses
+                                |
+             +-------------------+-------------------+
+             |              Condition (ABC)          |
+             +---------------------------------------+
+             | + is_satisfied(cart): bool            |
+             +---------------------------------------+
+                         ^       ^        ^
+                        /        |         \
+                       /         |          \
++-------------------+  +-------------------+  +-------------------+
+|  ProductCondition |  |  CategoryCondition|  | MinimumAmountCondition |
++-------------------+  +-------------------+  +-------------------+
+| - product_id      |  | - category_id     |  | - minimum_amount   |
++-------------------+  +-------------------+  +-------------------+
+| + is_satisfied()  |  | + is_satisfied()  |  | + is_satisfied()  |
++-------------------+  +-------------------+  +-------------------+
+
++-------------------+ 
+|      Coupon       | 
++-------------------+
+| - code            |
+| - discount        |
+| - conditions      |
+| - expiry_date     |
++-------------------+
+| + is_valid()      |
+| + apply_discount()|
++-------------------+
+
++-------------------+ 
+|   CouponManager   | 
++-------------------+
+| - coupons         |
++-------------------+
+| + generate_coupon() |
+| + apply_coupon()  |
++-------------------+
+
+"""
+from datetime import datetime
+
+
+from datetime import datetime, timedelta
+import random
+import string
+
+from abc import ABC, abstractmethod
+
 
 class Category:
     def __init__(self, category_id, name):
         self.category_id = category_id
         self.name = name
-
 
 class Product:
     def __init__(self, product_id, name, price, category):
@@ -11,7 +80,6 @@ class Product:
         self.name = name
         self.price = price
         self.category = category
-
 
 class Cart:
     def __init__(self):
@@ -24,11 +92,6 @@ class Cart:
 
     def get_total_amount(self):
         return self.total_amount
-
-from datetime import datetime
-
-
-from abc import ABC, abstractmethod
 
 class Condition(ABC):
     @abstractmethod
@@ -62,8 +125,6 @@ class MinimumAmountCondition(Condition):
     def is_satisfied(self, cart):
         return cart.total_amount >= self.minimum_amount
 
-
-
 class Coupon:
     def __init__(self, code, discount, conditions, expiry_date):
         self.code = code
@@ -82,11 +143,6 @@ class Coupon:
 
     def apply_discount(self, total_amount):
         return total_amount - self.discount
-
-
-from datetime import datetime, timedelta
-import random
-import string
 
 class CouponManager:
     def __init__(self):
