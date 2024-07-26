@@ -9,7 +9,7 @@ class Package:
                 currently_installing = set()
 
             if self.name in currently_installing:
-                raise Exception(f"Cyclic dependency detected at {self.name}. Installation aborted.")
+                raise Exception(f"Cyclic detected ")
 
             currently_installing.add(self.name)
 
