@@ -12,7 +12,7 @@ Classes:
 
 3. Elevator: Represents an elevator that processes user requests.
    - Attributes: id, capacity, current_floor, current_direction, requests (list of Request)
-   - Methods: add_request(request), process_requests(), process_request(request), move_to_floor(target_floor)
+   - Methods: add_request(request), process_requests(), move_to_floor(target_floor)
 
 4. ElevatorController: Manages multiple elevators and assigns requests to the optimal elevator.
    - Attributes: elevators (list of Elevator)
@@ -63,15 +63,6 @@ class Elevator:
             
             # Move to destination floor
             self.move_to_floor(request.destination_floor)
-
-    def process_request(self, request: Request):
-        print(f"Elevator {self.id} processing request from {request.source_floor} to {request.destination_floor}")
-
-        # Move to source floor
-        self.move_to_floor(request.source_floor)
-        
-        # Move to destination floor
-        self.move_to_floor(request.destination_floor)
 
     def move_to_floor(self, target_floor: int):
         while self.current_floor != target_floor:
