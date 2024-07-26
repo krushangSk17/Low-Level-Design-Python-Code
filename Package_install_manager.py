@@ -3,13 +3,13 @@ class Package:
         self.name = name
         self.dependencies = []
 
-    def install(self, manager, currently_installing=None):
+    def install(self, manager, currently_installing = None):
         if not manager.is_installed(self.name):
             if currently_installing is None:
                 currently_installing = set()
 
             if self.name in currently_installing:
-                raise Exception(f"Cyclic detected ")
+                raise Exception(f"Cyclic detected")
 
             currently_installing.add(self.name)
 

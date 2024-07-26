@@ -33,9 +33,7 @@ class LRUCache:
             self.add(node)
             return node.val
         else:
-            # Incorrect: print(f'no \'{key}\' present in cache')
-            # Correct: Return -1 if the key is not present
-            return -1  
+            return -1
 
     def put(self, key, value):
         if key in self.cache:
