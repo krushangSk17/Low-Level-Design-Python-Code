@@ -55,6 +55,7 @@ class Vehicle:
         self.size = Size.get(size)
         self.parked_spot = None
 
+
 class ParkingSpot:
     def __init__(self, id, size):
         self.id = id
@@ -63,6 +64,7 @@ class ParkingSpot:
 
     def is_available(self):
         return self.vehicle is None
+
 
 class ParkingLot:
     def __init__(self, small_count, medium_count, large_count):
